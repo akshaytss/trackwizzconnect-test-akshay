@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kyc-extraction-clusterip-service
+  labels:
+    app: kyc-extraction
+spec:
+  type: ClusterIP
+  selector:
+    app: kyc-extraction
+  ports:
+    - port: 80
+      targetPort: 7001

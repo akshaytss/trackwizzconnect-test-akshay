@@ -1,0 +1,34 @@
+andhra pradesh|ap
+arunachal pradesh|ar
+assam|as
+bihar|br
+chhattisgarh|cg
+goa|ga
+gujarat|gj
+haryana|hr
+himachal pradesh|hp
+jharkhand|jh
+karnataka|ka
+kerala|kl
+madhya pradesh|mp
+maharashtra|mh
+manipur|mn
+meghalaya|ml
+mizoram|mz
+nagaland|nl
+odisha|or
+punjab|pb
+rajasthan|rj
+sikkim|sk
+tamil nadu|tn
+telangana|tg
+tripura|tr
+uttar pradesh|up
+uttarakhand|uk
+west bengal|wb
+andaman and nicobar islands|an
+chandigarh|ch
+dadra and nagar haveli and daman and diu|dn
+lakshadweep|ld
+delhi|dl
+puducherry|py

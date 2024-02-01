@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-management-deployment
+  labels:
+    app: api-management
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-management
+  template:
+    metadata:
+      labels:
+        app: api-management
+    spec:
+      containers:
+        - name: api-management-docker
+          image: trackwizz/api_management:skt-22-1-3
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 7002
+          readinessProbe:
+            httpGet:
+              path: /api-management/actuator/health 
+              port: 7002
+            initialDelaySeconds: 5   
+            periodSeconds: 10   
+

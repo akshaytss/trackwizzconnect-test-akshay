@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kyc-extraction-ingress
+spec:
+  ingressClassName: azure-application-gateway        
+  tls:
+  - secretName: ingress-ssl
+  rules:
+    - host: kyc-dev.trackwizz.app
+      http:
+        paths:
+          - path: /api/extract/doc
+            pathType: Prefix
+            backend:
+              service:
+                name: kyc-extraction-clusterip-service
+                port: 
+                  number: 80                                                              
+                     

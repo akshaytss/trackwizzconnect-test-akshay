@@ -1,0 +1,44 @@
+# application properties
+service:
+  name: ${spring.application.name}
+  version: 1.0.0
+spring.application.name: kyc_match
+server:
+  port: 7003
+  servlet:
+    context-path: /api/match/doc
+
+spring.profiles.active: local # override active profile by passing command-line argument --spring.profiles.active = {env}
+twc.service.name: 'kyc-match'
+
+# database
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://twnext-sbpostgres-ci.postgres.database.azure.com:5432/trackwizz_connect_test
+    username: tssadmin
+    password: TrackWizz@2023@#
+  jpa:
+    hibernate:
+      ddl-auto: update # create/update | change it to 'update' once db schema confirmed
+
+# swagger
+spring-doc:
+  swagger-ui:
+    path: /swagger
+
+
+# external services
+# ORBO
+# externalservice.orbo.base-url: https://kycextraction-sandbox.azurewebsites.net
+# externalservice.orbo.base-url: http://20.197.13.41:9001
+externalservice.orbo.base-url: https://xa1-dev.trackwizz.app
+externalservice.orbo.endpoint: /api/extract
+
+photomatch.orbo.base-url: http://20.219.215.248
+photomatch.orbo.endpoint: /match
+
+twc.jwt.token.expiry: 60  # 60 * 24 * 365 | 1 year = minutes * hours * days
+
+spring.codec.max-in-memory-size: 20MB # TODO review size (20MB) default is 256KB DataBufferLimitException
+

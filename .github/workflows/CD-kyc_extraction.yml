@@ -1,0 +1,15 @@
+name: CD-kyc_extraction (Deploy to Kubernetes)
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Specify the version to use'
+        required: true
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/Template-aks.yml  
+    with:
+      service_name: kyc_extraction
+      version: ${{ github.event.inputs.version }}  

@@ -1,0 +1,12 @@
+twc.environment: 'dev'
+
+# database
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://twnext-sbpostgres-ci.postgres.database.azure.com:5432/trackwizz_connect_test
+    username: tssadmin
+    password: TrackWizz@2023@#
+  jpa:
+    hibernate:
+      ddl-auto: update # create/update | change it to 'update' once db schema confirmed

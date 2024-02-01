@@ -1,0 +1,15 @@
+name: CD-kyc_match (Deploy to Kubernetes)
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Specify the version to use'
+        required: true
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/Template-aks.yml  
+    with:
+      service_name: kyc_match
+      version: ${{ github.event.inputs.version }}  

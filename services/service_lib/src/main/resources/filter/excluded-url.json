@@ -1,0 +1,9 @@
+{
+  "JwtAuthenticationFilter" : [
+    "/actuator/**",
+    "/actuator",
+    "/swagger-ui/**",
+    "/swagger",
+    "/v3/api-docs/**"
+  ]
+}

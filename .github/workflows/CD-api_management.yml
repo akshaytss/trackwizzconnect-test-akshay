@@ -1,0 +1,15 @@
+name: CD-api_management (Deploy to Kubernetes)
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Specify the version to use'
+        required: true
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/Template-aks.yml  
+    with:
+      service_name: api_management
+      version: ${{ github.event.inputs.version }}  

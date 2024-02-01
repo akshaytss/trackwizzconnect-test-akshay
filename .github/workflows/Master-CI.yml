@@ -1,0 +1,66 @@
+name: A Master CI
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Specify the version to use'
+        required: true
+
+jobs:
+  trigger_kyc_extraction:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set Version and Branch
+        run: |
+          echo "VERSION=${{ github.event.inputs.version }}" >> $GITHUB_ENV
+          echo "BRANCH=${{ github.head_ref || github.ref }}" >> $GITHUB_ENV
+
+      - name: Trigger CI-kyc_extraction Workflow
+        run: |
+          version="${{ env.VERSION }}"
+          branch="${{ env.BRANCH }}"
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"ref": "'"$branch"'", "inputs": {"version": "'"$version"'"}}' \
+            https://api.github.com/repos/tsstrackwizz/trackwizzconnect/actions/workflows/CI-kyc_extraction.yml/dispatches
+
+  trigger_kyc_match:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set Version and Branch
+        run: |
+          echo "VERSION=${{ github.event.inputs.version }}" >> $GITHUB_ENV
+          echo "BRANCH=${{ github.head_ref || github.ref }}" >> $GITHUB_ENV
+
+      - name: Trigger CI-kyc_match Workflow
+        run: |
+          version="${{ env.VERSION }}"
+          branch="${{ env.BRANCH }}"
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"ref": "'"$branch"'", "inputs": {"version": "'"$version"'"}}' \
+            https://api.github.com/repos/tsstrackwizz/trackwizzconnect/actions/workflows/CI-kyc_match.yml/dispatches
+
+  trigger_api_management:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set Version and Branch
+        run: |
+          echo "VERSION=${{ github.event.inputs.version }}" >> $GITHUB_ENV
+          echo "BRANCH=${{ github.head_ref || github.ref }}" >> $GITHUB_ENV
+
+      - name: Trigger CI-api_management Workflow
+        run: |
+          version="${{ env.VERSION }}"
+          branch="${{ env.BRANCH }}"
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"ref": "'"$branch"'", "inputs": {"version": "'"$version"'"}}' \
+            https://api.github.com/repos/tsstrackwizz/trackwizzconnect/actions/workflows/CI-api_management.yml/dispatches

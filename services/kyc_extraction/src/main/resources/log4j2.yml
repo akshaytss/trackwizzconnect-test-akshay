@@ -1,0 +1,29 @@
+Configuration:
+  status: warn
+  name: kyc_extraction
+  packages:
+    - app.trackwizz.connect
+
+Appenders:
+  Console:
+    name: Console
+    target: SYSTEM_OUT
+    PatternLayout:
+      pattern: "%d{HH:mm:ss.SSS} [%t] %-5level %logger.%M - %msg%n"
+
+  RollingFile:
+    name: File
+    fileName: logs/kyc_extraction.log
+    filePattern: logs/kyc_extraction-%d{yyyy-MM-dd}.log.gz
+    PatternLayout:
+      pattern: "%d{HH:mm:ss.SSS} [%t] %-5level %logger.%M - %msg%n"
+    Policies:
+      SizeBasedTriggeringPolicy:
+        size: 10 MB
+
+Loggers:
+  Root:
+    level: info
+    AppenderRef:
+      - ref: Console
+      - ref: File
