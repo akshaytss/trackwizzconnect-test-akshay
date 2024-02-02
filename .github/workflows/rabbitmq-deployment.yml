@@ -1,0 +1,58 @@
+name: Template-aks
+
+on:
+  workflow_call:
+    inputs:
+      service_name:
+        description: 'Name of the service to deploy'
+        type: string
+        required: true
+      version:
+        description: 'Version of the service to deploy'
+        type: string
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Get version from input
+        run: echo "VERSION=${{ github.event.inputs.version }}" >> $GITHUB_ENV
+
+      - name: Pull RabbitMQ Docker image
+        run: docker pull rabbitmq:latest
+
+      - name: Azure Kubernetes set context
+        uses: Azure/aks-set-context@v1
+        with:
+          creds: |
+            {
+              "clientId": "892a8e5a-2554-41a1-b411-a13f97b5d9e0",
+              "clientSecret": "h1U8Q~JJpaqiT1w4fpV429uEvSanx99KWc12haMJ",
+              "tenantId": "d7e82a60-dc4e-403e-ad9b-e2cbe3b2eb6b",
+              "subscriptionId": "ccde0b25-b731-439f-bce8-5ef8b917a848",
+              "activeDirectoryEndpointUrl": "https://login.microsoftonline.com",
+              "resourceManagerEndpointUrl": "https://management.azure.com/",
+              "activeDirectoryGraphResourceId": "https://graph.windows.net/",
+              "sqlManagementEndpointUrl": "https://management.core.windows.net:8443/",
+              "galleryEndpointUrl": "https://gallery.azure.com/",
+              "managementEndpointUrl": "https://management.core.windows.net/"
+            }
+          resource-group: vnet-resource
+          cluster-name: testkubernetes
+
+      # ... other steps for creating secret and deploying to Kubernetes ...
+
+      - name: Deploy to Kubernetes cluster
+        uses: Azure/k8s-deploy@v1
+        with:
+          manifests: |
+            services/${{ inputs.service_name }}/k8s/deployment.yml
+            services/${{ inputs.service_name }}/k8s/service.yml
+            services/${{ inputs.service_name }}/k8s/ingress.yml
+          images: rabbitmq:latest
+          action: deploy
